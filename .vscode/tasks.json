@@ -1,0 +1,75 @@
+{
+    "version": "2.0.0",
+    "runner": "terminal",
+    "type": "shell",
+    "echoCommand": true,
+    "presentation" : { "reveal": "always" },
+    "tasks": [
+        {
+            "label": "save and compile for C++",
+            "command": "./Server/compile.sh",
+            /*
+            "args": [
+                "-g",
+                "-o",
+                "./Server/${fileBasenameNoExtension}",
+                "./Server/${fileBasename}",
+                "-lstdc++",
+                "-std=c++17",
+                "-lpthread",
+                "-lboost_system",
+                "-lboost_thread",
+                "-D_GNU_SOURCE",
+                "-Werror"
+            ],
+            */
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": {
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "save and compile for C",
+            "command": "gcc",
+            "args": [
+                "-o",
+                "${fileBasenameNoExtension}",
+                "${fileBasename}"
+            ],
+            "group": "build",
+            "problemMatcher": {
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "execute",
+            "command": "./Server/Main.exe", //"./${fileBasenameNoExtension}.exe",
+            "group": "test"
+        }
+    ]
+}
