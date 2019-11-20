@@ -6,26 +6,30 @@ unsigned int HTTP::Server::get_session_index(){
 }
 
 void HTTP::Server::accepted(){
-    std::cout<<__PRETTY_FUNCTION__<<"\n";
+    std::cout<<std::this_thread::get_id()<<" "<<__PRETTY_FUNCTION__<<"\n";
+
+    // acceptor_.get_io_context().post(boost::bind(&HTTP::Server::accept, this));
 
     session_->receive();
 }
 
 void HTTP::Server::accept(){
-    std::cout<<__PRETTY_FUNCTION__<<"\n";
+    std::cout<<std::this_thread::get_id()<<" "<<__PRETTY_FUNCTION__<<"\n";
 
-    session_ = boost::make_shared<HTTP::Session>(session_ioc_[get_session_index()]);
+    // session_ = boost::make_shared<HTTP::Session>(session_ioc_[get_session_index()]);
+    session_ = boost::make_shared<HTTP::Session>(acceptor_.get_io_context());
 
     acceptor_.async_accept(
         session_->get_socket(),
         [&](boost::system::error_code const& ec){
+            std::cout<<std::this_thread::get_id()<<" "<<__PRETTY_FUNCTION__<<"\n";
             accepted();
         }
     );
 }
 
 void HTTP::Server::start(){
-    std::cout<<__PRETTY_FUNCTION__<<"\n";
+    std::cout<<std::this_thread::get_id()<<" "<<__PRETTY_FUNCTION__<<"\n";
 
     for(int i=0; i<session_ioc_.size(); ++i)
         tg_.create_thread(

@@ -4,8 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:\\cygwin\\usr\\include",
-                "C:\\cygwin\\usr\\src\\debug\\boost-1.66.0-1\\boost"
+                "C:\\cygwin64\\usr\\include",
+                "C:\\cygwin64\\usr\\src\\debug\\boost-1.66.0-1\\boost"
             ],
             "defines": [
                 "_DEBUG",
@@ -15,8 +15,8 @@
             "browse": {
                 "path": [
                     "${workspaceRoot}",
-                    "C:\\cygwin\\usr\\include",
-                    "C:\\cygwin\\usr\\src\\debug\\boost-1.66.0-1\\boost"
+                    "C:\\cygwin64\\usr\\include",
+                    "C:\\cygwin64\\usr\\src\\debug\\boost-1.66.0-1\\boost"
                 ]
             },
             "windowsSdkVersion": "10.0.16299.0",

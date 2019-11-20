@@ -5,6 +5,7 @@
 #include <boost/asio.hpp>
 #include <boost/make_shared.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/bind.hpp>
 
 namespace HTTP{
     class Session{
@@ -16,8 +17,6 @@ namespace HTTP{
             {}
             
             boost::asio::ip::tcp::socket& get_socket();
-            // buffer_type& get_buffer();
-            // boost::asio::io_context& get_io_context();
 
             void receive();
 

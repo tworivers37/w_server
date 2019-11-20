@@ -1,9 +1,10 @@
 CXX = gcc
 LIBS = -lpthread -lboost_system -lboost_thread -lboost_chrono
 OPTS = -lstdc++ -std=c++17
+DEBUG = -ggdb -O0
 
 Main: Session.o Server.o Main.o
-	$(CXX) -o Main Main.o Server.o Session.o $(OPTS) $(LIBS)
+	$(CXX) -o Main Main.o Server.o Session.o $(OPTS) $(LIBS) $(ggdb)
 
 Main.o:
 	$(CXX) -c Main.cpp
