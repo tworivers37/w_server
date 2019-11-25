@@ -14,7 +14,7 @@ namespace HTTP{
         public:
             
             Server(boost::shared_ptr<boost::asio::io_context>& ioc, boost::asio::ip::tcp::endpoint ep)
-                : acceptor_(*ioc, ep)
+                : acceptor_(*ioc)
                 , server_endpoint_(ep.protocol(), ep.port())
             {
             }
