@@ -9,8 +9,8 @@ int main(){
     boost::shared_ptr<boost::asio::io_context> ioc = boost::make_shared<boost::asio::io_context>();
     boost::asio::ip::tcp::endpoint ep(boost::asio::ip::tcp::v4(), 9988);
 
-    HTTP::Server server(ioc, ep);
-    server.start();
+    boost::shared_ptr<HTTP::Server> server = boost::make_shared<HTTP::Server>(ioc, ep);
+    server->start();
 
     ioc->run();
     

@@ -4,15 +4,13 @@
 void HTTP::Server::accepted(){
     std::cout<<std::this_thread::get_id()<<" : "<<__PRETTY_FUNCTION__<<"\n";
 
-    session_->receive();
+    session_->get_socket().get_io_context().post(boost::bind(&HTTP::Session::receive, session_));
+
+    accept();
 }
 
 void HTTP::Server::accept(){
     std::cout<<std::this_thread::get_id()<<" : "<<__PRETTY_FUNCTION__<<"\n";
-
-    acceptor_.open(server_endpoint_.protocol());
-    acceptor_.bind(server_endpoint_);
-    acceptor_.listen(1024 * 1024);
 
     session_ = boost::make_shared<HTTP::Session>(Thread::ThreadManager::get_instance().get_io_context());
 
@@ -30,12 +28,21 @@ void HTTP::Server::accept(){
             }
 
             accepted();
+
+            
         }
     );
 }
 
+void HTTP::Server::init(){
+    acceptor_.open(server_endpoint_.protocol());
+    acceptor_.bind(server_endpoint_);
+    acceptor_.listen(1024 * 1024);
+}
+
 void HTTP::Server::start(){
     std::cout<<std::this_thread::get_id()<<" : "<<__PRETTY_FUNCTION__<<"\n";
+    init();
     accept();
 }
 

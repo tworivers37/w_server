@@ -6,11 +6,13 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
 #include <boost/thread.hpp>
+#include <boost/enable_shared_from_this.hpp>
 
 #include "Session.h"
 
 namespace HTTP{
-    class Server{
+    class Server
+    : public boost::enable_shared_from_this<HTTP::Server>{
         public:
             
             Server(boost::shared_ptr<boost::asio::io_context>& ioc, boost::asio::ip::tcp::endpoint ep)
@@ -19,6 +21,7 @@ namespace HTTP{
             {
             }
 
+            void init();
             void start();
             void stop();
             
