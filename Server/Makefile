@@ -4,7 +4,7 @@ OPTS = -lstdc++ -std=c++17
 DEBUG = -ggdb -O0
 
 Main: Session.o Server.o Main.o
-	$(CXX) -o Main Main.o Server.o Session.o ../ThreadManager/ThreadManager.o $(OPTS) $(LIBS) $(ggdb)
+	$(CXX) -o Player Main.o Server.o Session.o ../ThreadManager/ThreadManager.o $(OPTS) $(LIBS) $(ggdb)
 
 Main.o:
 	$(CXX) -c Main.cpp

@@ -24,10 +24,20 @@ namespace Thread{
             }
 
             boost::shared_ptr<boost::asio::io_context>& get_io_context(){
+                std::lock_guard<std::mutex> g(get_io_context_mutex_);
+                std::cout<<"index : "<<index_<<"\n";
+                if(io_vector_[index_].get() == nullptr)
+                {
+                    std::cout<<index_<<" : io_context nullptr\n";
+                    // io_vector_[index_] = boost::make_shared<boost::asio::io_context>();
+                    // thread_group_.create_thread(boost::bind(&Thread::ThreadManager::create_thread, this, std::ref(io_vector_[index_])));
+                    // return io_vector_[index_];
+                }
+                
                 return io_vector_[get_index()];
             }
-        private:
 
+        private:
             unsigned int get_index(){
                 if(index_ > io_count_ - 1) index_ = 0;
                 else ++index_;
@@ -74,6 +84,7 @@ namespace Thread{
 
             boost::asio::io_context thread_manager_ioc_;
             std::mutex mutex_;
+            std::mutex get_io_context_mutex_;
 
     };
 };

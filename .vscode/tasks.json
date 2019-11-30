@@ -68,7 +68,7 @@
         },
         {
             "label": "execute",
-            "command": "./Server/Main.exe", //"./${fileBasenameNoExtension}.exe",
+            "command": "./Server/Player.exe", //"./${fileBasenameNoExtension}.exe",
             "group": "test"
         }
     ]

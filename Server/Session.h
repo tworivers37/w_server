@@ -26,10 +26,11 @@ namespace HTTP{
             {}
             
             boost::asio::ip::tcp::socket& get_socket();
-
             void receive();
 
         private:
+            void written(boost::system::error_code const& ec, std::size_t transferred);
+            void write();
             void received(boost::system::error_code const& ec, std::size_t transferred);
 
             boost::asio::ip::tcp::socket socket_;
