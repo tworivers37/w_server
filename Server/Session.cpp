@@ -8,7 +8,7 @@ void HTTP::Session::written(boost::system::error_code const& ec, std::size_t tra
     std::cout<<std::this_thread::get_id()<<" : "<<__PRETTY_FUNCTION__<<"\n";
 
     if(ec){
-        std::cout<<"ec : "<<ec.message()<<"\n";
+        std::cout<<"written ec : "<<ec.message()<<"\n";
         socket_.close();
         return;
     }
@@ -19,8 +19,17 @@ void HTTP::Session::written(boost::system::error_code const& ec, std::size_t tra
 
 void HTTP::Session::write(){
     std::cout<<std::this_thread::get_id()<<" : "<<__PRETTY_FUNCTION__<<"\n";
-    std::string send_data = "HTTP/1.1 200 OK\r\n\r\nServer TEST";
-    
+
+    //response setting...
+
+    std::string send_data = "";
+    std::string crlf = "\r\n";
+    std::string body = "SERVER TEST!!!!!!" + crlf;
+    std::string status = "HTTP/1.1 200 OK" + crlf;
+    std::string content_length = "Content-Length: " + std::to_string(body.size()) + crlf;
+
+    send_data = status + content_length + crlf + body;
+
     boost::asio::async_write(
         socket_,
         boost::asio::buffer(send_data),
@@ -38,7 +47,7 @@ void HTTP::Session::received(boost::system::error_code const& ec, std::size_t tr
     std::cout<<std::this_thread::get_id()<<" : "<<__PRETTY_FUNCTION__<<"\n";
 
     if(ec){
-        std::cout<<"ec : "<<ec.message()<<"\n";
+        std::cout<<"received ec : "<<ec.message()<<"\n";
         socket_.close();
 
         return;
@@ -46,6 +55,8 @@ void HTTP::Session::received(boost::system::error_code const& ec, std::size_t tr
 
     std::cout<<"\n------------------------- Received -------------------------\n";
     std::cout<<buffer_.data()<<"\n";
+
+    //request parsing...
 
     buffer_.clear();
 

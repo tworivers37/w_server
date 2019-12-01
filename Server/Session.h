@@ -21,8 +21,7 @@ namespace HTTP{
             
             Session(boost::asio::io_context& ioc)
             :   socket_(ioc),
-                buffer_(buffer_type(1024 * 1024))//,
-               // session_ioc_(boost::make_shared<boost::asio::io_context>(ioc))
+                buffer_(buffer_type(1024 * 1024))
             {}
             
             boost::asio::ip::tcp::socket& get_socket();

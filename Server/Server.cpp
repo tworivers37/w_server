@@ -15,7 +15,6 @@ void HTTP::Server::accepted(){
 void HTTP::Server::accept(){
     std::cout<<std::this_thread::get_id()<<" : "<<__PRETTY_FUNCTION__<<"\n";
     
-    std::cout<<"io >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> : "<<Thread::ThreadManager::get_instance().get_io_context().get()<<"\n";
     session_ = boost::make_shared<HTTP::Session>(Thread::ThreadManager::get_instance().get_io_context());
 
     acceptor_.async_accept(
@@ -27,7 +26,7 @@ void HTTP::Server::accept(){
             std::cout<<"session remote : "<<session_->get_socket().remote_endpoint()<<"\n";
 
             if(ec){
-                std::cerr<<"ec : "<<ec.message()<<" "<<ec.value()<<"\n";
+                std::cout<<"accept lambda ec : "<<ec.message()<<" "<<ec.value()<<"\n";
                 return;
             }
 
